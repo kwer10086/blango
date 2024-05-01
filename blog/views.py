@@ -2,7 +2,11 @@ from django.shortcuts import render,get_object_or_404,redirect
 from django.utils import timezone
 from blog.models import Post
 from blog.forms import CommentForm
+import logging
 # Create your views here.
+
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     posts = Post.objects.filter(published_at__lte=timezone.now())
