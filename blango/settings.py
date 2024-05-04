@@ -154,6 +154,14 @@ class Dev(Configuration):
     LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+
+    "filter":{
+        "require_debug_false":{
+        "()":"django.utils.log.RequireDebugFalse",
+        },
+    },
+
+
     "formatters": {
         "verbose": {
             "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
@@ -166,16 +174,16 @@ class Dev(Configuration):
             "stream": "ext://sys.stdout",
             "formatter": "verbose",
         },
-        "mail_admins": {
-            "level": "ERROR",
-            "class": "django.utils.log.AdminEmailHandler",
-            "filters": ["require_debug_false"],
-        },
+        # "mail_admins": {
+        #     "level": "ERROR",
+        #     "class": "django.utils.log.AdminEmailHandler",
+        #     "filters": ["require_debug_false"],
+        # },
     },
 
     "loggers": {
         "django.request": {
-            "handlers": ["mail_admins"],
+            # "handlers": ["mail_admins"],
             "level": "ERROR",
             "propagate": True,
         },

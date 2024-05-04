@@ -3,12 +3,18 @@ from django.utils import timezone
 from blog.models import Post
 from blog.forms import CommentForm
 import logging
+from django.views.decorators.vary import vary_on_cookie
+from django.views.decorators.cache import cache_page
 # Create your views here.
 
 
 logger = logging.getLogger(__name__)
 
+@cache_page(300)
+@vary_on_cookie
 def index(request):
+    from django.http import HttpResponse
+    logger.debug("Index function is called")
     posts = Post.objects.filter(published_at__lte=timezone.now())
     return render(request, "index.html", {"posts": posts})
 
