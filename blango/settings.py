@@ -31,7 +31,7 @@ class Dev(Configuration):
     # DEBUG = True
     DEBUG = values.BooleanValue(True)
     # ALLOWED_HOSTS = ['*']
-    ALLOWED_HOSTS = values.ListValue(['localhost','0.0.0.0','.codio.io'])
+    ALLOWED_HOSTS = values.ListValue(['localhost','127.0.0.1','.codio.io'])
     X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
     CSRF_COOKIE_SAMESITE = None
     CSRF_TRUSTED_ORIGINS = ['https://' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io']
@@ -53,13 +53,17 @@ class Dev(Configuration):
         'django.contrib.staticfiles',
         'blog',
         'crispy_forms',
-        'crispy_bootstrap5'
+        'crispy_bootstrap5',
+        'debug_toolbar'
     ]
+
+    INTERNAL_IPS = ['192.168.10.226']
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
         # 'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',

@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+import debug_toolbar
 
 
 urlpatterns = [
@@ -25,3 +26,12 @@ urlpatterns = [
 # TESTING LINE
 # from django.conf import settings
 # print(f'timezone:{settings.TIME_ZONE}')
+
+
+from django.conf import settings
+
+if settings.DEBUG:
+    print(settings.DEBUG)
+    urlpatterns += [
+        path("__debug__/",include(debug_toolbar.urls)),
+    ]

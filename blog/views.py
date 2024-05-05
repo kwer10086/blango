@@ -38,3 +38,8 @@ def post_detail(request, slug):
 
 
     return render(request, "post_details.html", {"post": post,"comment_form":comment_form})
+
+
+def get_id(request):
+  from django.http import HttpResponse
+  return HttpResponse(request.META['REMOTE_ADDR'])
